@@ -1,16 +1,22 @@
-
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Eye, EyeOff, Facebook, LogIn } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Eye, EyeOff, Facebook, LogIn } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
@@ -18,49 +24,49 @@ export const LoginForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email || !password) {
       toast({
-        title: 'Error',
-        description: 'Please fill in all fields',
-        variant: 'destructive',
+        title: "Error",
+        description: "Please fill in all fields",
+        variant: "destructive",
       });
       return;
     }
-    
+
     setIsLoading(true);
-    
+
     // Check for admin credentials
-    if (email === 'admin@hospitopia.com' && password === 'admin123') {
+    if (email === "admin@hospitopia.com" && password === "admin123") {
       setTimeout(() => {
         toast({
-          title: 'Admin Login Successful',
-          description: 'Welcome to the admin dashboard',
+          title: "Admin Login Successful",
+          description: "Welcome to the admin dashboard",
         });
         setIsLoading(false);
-        navigate('/admin/dashboard');
+        navigate("/admin/dashboard");
       }, 1500);
       return;
     }
 
     // Check for hotel owner credentials
-    if (email === 'owner@hospitopia.com' && password === 'owner123') {
+    if (email === "owner@hospitopia.com" && password === "owner123") {
       setTimeout(() => {
         toast({
-          title: 'Hotel Owner Login Successful',
-          description: 'Welcome to the hotel owner dashboard',
+          title: "Hotel Owner Login Successful",
+          description: "Welcome to the hotel owner dashboard",
         });
         setIsLoading(false);
-        navigate('/owner/dashboard');
+        navigate("/owner/dashboard");
       }, 1500);
       return;
     }
-    
+
     // Simulate API call for regular users
     setTimeout(() => {
       toast({
-        title: 'Success',
-        description: 'You have been logged in successfully',
+        title: "Success",
+        description: "You have been logged in successfully",
       });
       setIsLoading(false);
       // Redirect to dashboard or home page
@@ -88,7 +94,7 @@ export const LoginForm = () => {
               required
             />
           </div>
-          
+
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <Label htmlFor="password">Password</Label>
@@ -102,7 +108,7 @@ export const LoginForm = () => {
             <div className="relative">
               <Input
                 id="password"
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -130,9 +136,25 @@ export const LoginForm = () => {
           >
             {isLoading ? (
               <div className="flex items-center">
-                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                <svg
+                  className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
                 </svg>
                 Logging in...
               </div>
@@ -149,7 +171,9 @@ export const LoginForm = () => {
             <div className="w-full border-t border-gray-200"></div>
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="bg-white px-2 text-gray-500">Or continue with</span>
+            <span className="bg-white px-2 text-gray-500">
+              Or continue with
+            </span>
           </div>
         </div>
 
@@ -183,8 +207,11 @@ export const LoginForm = () => {
       </CardContent>
       <CardFooter className="flex justify-center">
         <p className="text-sm text-gray-600">
-          Don't have an account?{' '}
-          <a href="/register" className="text-hotel-blue hover:underline font-medium">
+          Don't have an account?{" "}
+          <a
+            href="/register"
+            className="text-hotel-blue hover:underline font-medium"
+          >
             Sign up
           </a>
         </p>
