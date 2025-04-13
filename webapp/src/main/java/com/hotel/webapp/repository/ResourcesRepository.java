@@ -1,8 +1,8 @@
 package com.hotel.webapp.repository;
 
+import com.hotel.webapp.base.BaseRepository;
 import com.hotel.webapp.entity.Resources;
 import jakarta.transaction.Transactional;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 import java.util.Optional;
 
 @Repository
-public interface ResourcesRepository extends JpaRepository<Resources, Integer> {
+public interface ResourcesRepository extends BaseRepository<Resources, Integer> {
   @Query("SELECT r.id FROM Resources r WHERE r.name = :name")
   Optional<Integer> findIdByName(String name);
 
@@ -23,4 +23,6 @@ public interface ResourcesRepository extends JpaRepository<Resources, Integer> {
   boolean existsByNameAndDeletedAtIsNull(String name);
 
   boolean existsByNameAndIdNotAndDeletedAtIsNull(String name, int id);
+
+  boolean existsByIdAndDeletedAtIsNull(Integer id);
 }

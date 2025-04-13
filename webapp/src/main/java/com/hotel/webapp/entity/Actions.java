@@ -1,5 +1,6 @@
 package com.hotel.webapp.entity;
 
+import com.hotel.webapp.base.AuditEntity;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,7 +17,7 @@ import java.time.LocalDateTime;
 @Builder
 @Table(name = "actions")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Actions {
+public class Actions implements AuditEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   Integer id;
@@ -29,4 +30,5 @@ public class Actions {
   Integer updatedBy;
   @Nullable
   LocalDateTime deletedAt;
+
 }

@@ -1,9 +1,10 @@
 package com.hotel.webapp.controller.admin;
 
-import com.hotel.webapp.dto.admin.Request.AuthReq;
-import com.hotel.webapp.dto.admin.Response.ApiResponse;
-import com.hotel.webapp.dto.admin.Response.AuthResponse;
-import com.hotel.webapp.service.admin.AuthService;
+import com.hotel.webapp.dto.admin.request.AuthReq;
+import com.hotel.webapp.dto.admin.response.ApiResponse;
+import com.hotel.webapp.dto.admin.response.AuthResponse;
+import com.hotel.webapp.service.admin.interfaces.AuthService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -19,7 +20,7 @@ public class AuthController {
   AuthService authService;
 
   @PostMapping("/login")
-  public ApiResponse<AuthResponse> authentication(AuthReq authReq) {
+  public ApiResponse<AuthResponse> authentication(@Valid AuthReq authReq) {
     return ApiResponse.<AuthResponse>builder()
                       .result(authService.authenticate(authReq))
                       .build();

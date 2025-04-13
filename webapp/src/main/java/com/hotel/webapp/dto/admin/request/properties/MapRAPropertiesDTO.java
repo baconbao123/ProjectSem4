@@ -1,13 +1,16 @@
-package com.hotel.webapp.dto.admin.Request;
+package com.hotel.webapp.dto.admin.request.properties;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ActionResourceReq {
-  String name;
+public class MapRAPropertiesDTO {
+  Integer resourceId;
+  List<Integer> actionId;
 }

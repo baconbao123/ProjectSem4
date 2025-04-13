@@ -1,6 +1,6 @@
 package com.hotel.webapp.config;
 
-import com.hotel.webapp.service.admin.PermissionSystemSeeder;
+import com.hotel.webapp.service.system.PermissionSystemSeeder;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

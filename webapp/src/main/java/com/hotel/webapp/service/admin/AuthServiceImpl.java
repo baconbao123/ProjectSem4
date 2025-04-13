@@ -1,13 +1,14 @@
 package com.hotel.webapp.service.admin;
 
-import com.hotel.webapp.dto.admin.Request.AuthReq;
-import com.hotel.webapp.dto.admin.Response.AuthResponse;
+import com.hotel.webapp.dto.admin.request.AuthReq;
+import com.hotel.webapp.dto.admin.response.AuthResponse;
 import com.hotel.webapp.entity.User;
 import com.hotel.webapp.exception.AppException;
 import com.hotel.webapp.exception.ErrorCode;
 import com.hotel.webapp.repository.MapUserRoleRepository;
 import com.hotel.webapp.repository.RoleRepository;
 import com.hotel.webapp.repository.UserRepository;
+import com.hotel.webapp.service.admin.interfaces.AuthService;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jwt.JWTClaimsSet;

@@ -1,4 +1,4 @@
-package com.hotel.webapp.dto.admin.Response;
+package com.hotel.webapp.dto.admin.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;

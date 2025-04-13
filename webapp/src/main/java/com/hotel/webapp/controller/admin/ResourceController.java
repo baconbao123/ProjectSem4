@@ -1,13 +1,11 @@
 package com.hotel.webapp.controller.admin;
 
-import com.hotel.webapp.dto.admin.Request.ActionResourceReq;
-import com.hotel.webapp.dto.admin.Request.ActionResourceUpdate;
-import com.hotel.webapp.dto.admin.Response.ApiResponse;
-import com.hotel.webapp.entity.Actions;
+import com.hotel.webapp.dto.admin.request.ActionResourceDTO;
+import com.hotel.webapp.dto.admin.response.ApiResponse;
 import com.hotel.webapp.entity.Resources;
-import com.hotel.webapp.service.admin.ActionService;
-import com.hotel.webapp.service.admin.AuthService;
-import com.hotel.webapp.service.admin.ResourceService;
+import com.hotel.webapp.service.admin.ResourceServiceImpl;
+import com.hotel.webapp.service.admin.interfaces.AuthService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -21,19 +19,19 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ResourceController {
   AuthService authService;
-  ResourceService resourceService;
+  ResourceServiceImpl resourceService;
 
   @PostMapping("/create")
-  public ApiResponse<Resources> create(ActionResourceReq actionResourceReq) {
+  public ApiResponse<Resources> create(@Valid ActionResourceDTO actionResourceReq) {
     return ApiResponse.<Resources>builder()
-                      .result(resourceService.create(actionResourceReq, authService.getAuthLogin()))
+                      .result(resourceService.create(actionResourceReq))
                       .build();
   }
 
-  @PutMapping("/update")
-  public ApiResponse<Resources> update(ActionResourceUpdate updateReq) {
+  @PutMapping("/update/{id}")
+  public ApiResponse<Resources> update(@PathVariable int id, @Valid ActionResourceDTO updateReq) {
     return ApiResponse.<Resources>builder()
-                      .result(resourceService.update(updateReq, authService.getAuthLogin()))
+                      .result(resourceService.update(id, updateReq))
                       .build();
   }
 
@@ -51,9 +49,9 @@ public class ResourceController {
                       .build();
   }
 
-  @GetMapping("/delete/{id}")
+  @DeleteMapping("/delete/{id}")
   public ApiResponse<Void> deleteById(@PathVariable int id) {
-    resourceService.delete(id, authService.getAuthLogin());
+    resourceService.delete(id);
     return ApiResponse.<Void>builder()
                       .message("Deleted resource with id " + id + " successfully")
                       .build();

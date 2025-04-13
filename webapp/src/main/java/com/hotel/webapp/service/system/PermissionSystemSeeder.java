@@ -1,4 +1,4 @@
-package com.hotel.webapp.service.admin;
+package com.hotel.webapp.service.system;
 
 import com.hotel.webapp.repository.*;
 import com.nimbusds.jose.util.Pair;

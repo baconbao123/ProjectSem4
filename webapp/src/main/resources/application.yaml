@@ -1,10 +1,19 @@
 server:
   port: 9898
 
+app:
+  storage:
+    root: public
+    upload:
+      user: upload/user
+      hotel: upload/hotel
+    download:
+      user: user
+
 spring:
   web:
     resources:
-      static-locations: file:public/
+      static-locations: file:${app.storage.root}/
   datasource:
     url: jdbc:mysql://103.161.172.90:3308/hotel_manager
     username: root

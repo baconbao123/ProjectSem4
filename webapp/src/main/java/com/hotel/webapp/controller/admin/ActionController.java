@@ -1,11 +1,10 @@
 package com.hotel.webapp.controller.admin;
 
-import com.hotel.webapp.dto.admin.Request.ActionResourceReq;
-import com.hotel.webapp.dto.admin.Request.ActionResourceUpdate;
-import com.hotel.webapp.dto.admin.Response.ApiResponse;
+import com.hotel.webapp.dto.admin.request.ActionResourceDTO;
+import com.hotel.webapp.dto.admin.response.ApiResponse;
 import com.hotel.webapp.entity.Actions;
-import com.hotel.webapp.service.admin.ActionService;
-import com.hotel.webapp.service.admin.AuthService;
+import com.hotel.webapp.service.admin.ActionServiceImpl;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -13,45 +12,45 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// rest full api
 @RestController
 @RequestMapping("/api/action")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class ActionController {
-  AuthService authService;
-  ActionService actionService;
+  ActionServiceImpl actionServiceImpl;
 
   @PostMapping("/create")
-  public ApiResponse<Actions> create(ActionResourceReq actionResourceReq) {
+  public ApiResponse<Actions> create(@Valid ActionResourceDTO actionResourceDTO) {
     return ApiResponse.<Actions>builder()
-                      .result(actionService.create(actionResourceReq, authService.getAuthLogin()))
+                      .result(actionServiceImpl.create(actionResourceDTO))
                       .build();
   }
 
-  @PutMapping("/update")
-  public ApiResponse<Actions> update(ActionResourceUpdate updateReq) {
+  @PutMapping("/update/{id}")
+  public ApiResponse<Actions> update(@PathVariable int id, @Valid ActionResourceDTO updateReq) {
     return ApiResponse.<Actions>builder()
-                      .result(actionService.update(updateReq, authService.getAuthLogin()))
+                      .result(actionServiceImpl.update(id, updateReq))
                       .build();
   }
 
   @GetMapping("/get-all")
   public ApiResponse<List<Actions>> getAll() {
     return ApiResponse.<List<Actions>>builder()
-                      .result(actionService.getAll())
+                      .result(actionServiceImpl.getAll())
                       .build();
   }
 
   @GetMapping("/find-by-id/{id}")
   public ApiResponse<Actions> findById(@PathVariable int id) {
     return ApiResponse.<Actions>builder()
-                      .result(actionService.getById(id))
+                      .result(actionServiceImpl.getById(id))
                       .build();
   }
 
-  @GetMapping("/delete/{id}")
+  @DeleteMapping("/delete/{id}")
   public ApiResponse<Void> deleteById(@PathVariable int id) {
-    actionService.delete(id, authService.getAuthLogin());
+    actionServiceImpl.delete(id);
     return ApiResponse.<Void>builder()
                       .message("Deleted action with id " + id + " successfully")
                       .build();
